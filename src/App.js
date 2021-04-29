@@ -1,22 +1,58 @@
-import { Container, Grid, Icon, Segment, Statistic } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Container } from 'semantic-ui-react';
 import MainHeader from './components/MainHeader';
 import './App.css';
 import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
-import EntryLine from './components/EntryLine';
+import EntryLines from './components/EntryLines';
+
+const initialEntries = [
+	{
+		id: 1,
+		description: 'Work Income',
+		value: '$1000,00',
+		isExpense: false,
+	},
+	{
+		id: 2,
+		description: 'Water Bill',
+		value: '$20,00',
+		isExpense: true,
+	},
+	{
+		id: 3,
+		description: 'Rent',
+		value: '$300,00',
+		isExpense: true,
+	},
+	{
+		id: 4,
+		description: 'Power Bill',
+		value: '$30,00',
+		isExpense: true,
+	},
+];
 
 function App() {
+	const [ entries, setEntries ] = useState(initialEntries);
+	const allEntries = entries.map((value, index) => {
+
+	})
 	return (
 		<Container>
 			<MainHeader title="Budget" type="h1" />
-			<DisplayBalance size='small' color='black' style={{textAlign: 'left'}} value='Your Balance: ' amount='2,557.59' />
+			<DisplayBalance
+				size="small"
+				color="black"
+				style={{ textAlign: 'left' }}
+				value="Your Balance: "
+				amount="2,557.59"
+			/>
 			<DisplayBalances />
 			<MainHeader title="History" type="h3" />
-			<EntryLine color='red' columns='3' width='10' columnWidth='3' value='Something' amount='$10,00' />
-			<EntryLine color='green' columns='3' width='10' columnWidth='3' value='Something Else' amount='$91,09' />
-			<EntryLine color='red' columns='3' width='10' columnWidth='3' value='Something' amount='$70,99' />
-      <MainHeader title="Add new Transaction" type="h3" />
+			<EntryLines entries={entries} />	
+			<MainHeader title="Add new Transaction" type="h3" />
 			<NewEntryForm />
 		</Container>
 	);
