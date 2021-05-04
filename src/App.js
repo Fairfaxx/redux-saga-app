@@ -36,9 +36,13 @@ const initialEntries = [
 
 function App() {
 	const [ entries, setEntries ] = useState(initialEntries);
-	const allEntries = entries.map((value, index) => {
 
-	})
+	function deleteEntry(id) {
+		const result = entries.filter(entry => entry.id !== id)
+		console.log('clicked delete entry')
+		setEntries(result)
+	}
+
 	return (
 		<Container>
 			<MainHeader title="Budget" type="h1" />
@@ -51,7 +55,7 @@ function App() {
 			/>
 			<DisplayBalances />
 			<MainHeader title="History" type="h3" />
-			<EntryLines entries={entries} />	
+			<EntryLines entries={entries} deleteEntry={deleteEntry} />	
 			<MainHeader title="Add new Transaction" type="h3" />
 			<NewEntryForm />
 		</Container>

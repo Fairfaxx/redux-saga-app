@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import EntryLine from './EntryLine';
 
-const EntryLines = ({ entries }) => {
+const EntryLines = ({ entries, deleteEntry }) => {
 	return (
 		<Fragment>
 			{entries.map((entry) => (
 				<EntryLine
 					key={entry.id}
-					entry={entry}
+					{...entry}
+					deleteEntry={deleteEntry}
 				/>
 			))}
 		</Fragment>
