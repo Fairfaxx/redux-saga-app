@@ -6,41 +6,67 @@ import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
+import ModalEdit from './components/ModalEdit';
 
 const initialEntries = [
 	{
 		id: 1,
 		description: 'Work Income',
 		value: '$1000,00',
-		isExpense: false,
+		isExpense: false
 	},
 	{
 		id: 2,
 		description: 'Water Bill',
 		value: '$20,00',
-		isExpense: true,
+		isExpense: true
 	},
 	{
 		id: 3,
 		description: 'Rent',
 		value: '$300,00',
-		isExpense: true,
+		isExpense: true
 	},
 	{
 		id: 4,
 		description: 'Power Bill',
 		value: '$30,00',
-		isExpense: true,
-	},
+		isExpense: true
+	}
 ];
 
 function App() {
 	const [ entries, setEntries ] = useState(initialEntries);
+	const [ description, setDescription ] = useState('');
+	const [ value, setValue ] = useState('');
+	const [ isExpense, setIsExpense ] = useState(true);
+	const [ isOpen, setIsOpen ] = useState(false);
 
 	function deleteEntry(id) {
-		const result = entries.filter(entry => entry.id !== id)
-		console.log('clicked delete entry')
-		setEntries(result)
+		const result = entries.filter((entry) => entry.id !== id);
+		setEntries(result);
+	}
+
+	function editEntry(id) {
+		if(id){
+			const index = entries.findIndex(entry => entry.id === id);
+			const entry = entries[index];
+			setDescription(entry.description);
+			setValue(entry.value);
+			setIsExpense(entry.isExpense);
+			setIsOpen(true);
+		}
+		console.log(id);
+	}
+
+	function addEntry(description, value, isExpense) {
+		const result = entries.concat({
+			id: entries.length + 1,
+			description,
+			value,
+			isExpense
+		});
+		setEntries(result);
 	}
 
 	return (
@@ -55,9 +81,28 @@ function App() {
 			/>
 			<DisplayBalances />
 			<MainHeader title="History" type="h3" />
-			<EntryLines entries={entries} deleteEntry={deleteEntry} />	
+			<EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry} />
 			<MainHeader title="Add new Transaction" type="h3" />
-			<NewEntryForm />
+			<NewEntryForm
+				addEntry={addEntry}
+				setDescription={setDescription}
+				setValue={setValue}
+				setIsExpense={setIsExpense}
+				description={description}
+				value={value}
+				isExpense={isExpense}
+			/>
+			<ModalEdit 
+				isOpen={isOpen} 
+				setIsOpen={setIsOpen} 
+				addEntry={addEntry}
+				setDescription={setDescription}
+				setValue={setValue}
+				setIsExpense={setIsExpense}
+				description={description}
+				value={value}
+				isExpense={isExpense}
+				/>
 		</Container>
 	);
 }
