@@ -18,6 +18,7 @@ const ModalEdit = ({ isOpen, setIsOpen, addEntry, setDescription, setValue, setI
     </Modal.Content>
     <Modal.Actions>
       <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+      <Button onClick={() => setIsOpen(false)} positive>Confirm</Button>
     </Modal.Actions>
   </Modal>;
 };

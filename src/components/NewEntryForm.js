@@ -17,9 +17,7 @@ const NewEntryForm = ({ addEntry, setDescription, setValue, setIsExpense, descri
 			/>
 			<ButtonSaveOrCancel 
 				addEntry={addEntry} 
-				description={description} 
-				value={value} 
-				isExpense={isExpense} />
+				/>
 		</Form>
 	);
 };
