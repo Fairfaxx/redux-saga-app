@@ -7,37 +7,21 @@ import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
-import {useSelector} from 'react-redux';
-
+import { useSelector } from 'react-redux';
 
 function App() {
-	const [ description, setDescription ] = useState('');
-	const [ value, setValue ] = useState('');
-	const [ isExpense, setIsExpense ] = useState(true);
-	const [ isOpen, setIsOpen ] = useState(false);
-	const [ entryId, setEntryId ] = useState();
 	const [ totalIncomes, setTotalIncomes ] = useState(0);
 	const [ totalExpenses, setTotalExpenses ] = useState(0);
 	const [ total, setTotal ] = useState(0);
-	
-	const entries = useSelector(state => state.entries)
+	const [ entry, setEntry ] = useState();
+	const entries = useSelector((state) => state.entries);
+	const { isOpen, id } = useSelector((state) => state.modals);
 
-
-
-	useEffect(
-		() => {
-			if (!isOpen && entryId) {
-				const index = entries.findIndex((entry) => entry.id === entryId);
-				const newEntries = [ ...entries ];
-				newEntries[index].description = description;
-				newEntries[index].value = value;
-				newEntries[index].isExpense = isExpense;
-				//setEntries(newEntries);
-				resetEntries();
-			}
+	useEffect(() => {
+			const index = entries.findIndex((entry) => entry.id === id);
+			setEntry(entries[index]);
 		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[ isOpen ]
+		[ isOpen, id ]
 	);
 
 	useEffect(
@@ -59,36 +43,6 @@ function App() {
 		[ entries ]
 	);
 
-	function editEntry(id) {
-		if (id) {
-			const index = entries.findIndex((entry) => entry.id === id);
-			const entry = entries[index];
-			setEntryId(id);
-			setDescription(entry.description);
-			setValue(entry.value);
-			setIsExpense(entry.isExpense);
-			setIsOpen(true);
-		}
-		console.log(id);
-	}
-
-	function addEntry() {
-		const result = entries.concat({
-			id: entries.length + 1,
-			description,
-			value,
-			isExpense
-		});
-		//setEntries(result);
-		resetEntries();
-	}
-
-	function resetEntries() {
-		setDescription('');
-		setValue('');
-		setIsExpense(true);
-	}
-
 	return (
 		<Container>
 			<MainHeader title="Budget" type="h1" />
@@ -101,28 +55,10 @@ function App() {
 			/>
 			<DisplayBalances totalExpenses={totalExpenses} totalIncomes={totalIncomes} />
 			<MainHeader title="History" type="h3" />
-			<EntryLines entries={entries} editEntry={editEntry} />
+			<EntryLines entries={entries} />
 			<MainHeader title="Add new Transaction" type="h3" />
-			<NewEntryForm
-				addEntry={addEntry}
-				setDescription={setDescription}
-				setValue={setValue}
-				setIsExpense={setIsExpense}
-				description={description}
-				value={value}
-				isExpense={isExpense}
-			/>
-			<ModalEdit
-				isOpen={isOpen}
-				setIsOpen={setIsOpen}
-				addEntry={addEntry}
-				setDescription={setDescription}
-				setValue={setValue}
-				setIsExpense={setIsExpense}
-				description={description}
-				value={value}
-				isExpense={isExpense}
-			/>
+			<NewEntryForm />
+			<ModalEdit isOpen={isOpen} {...entry} />
 		</Container>
 	);
 }
