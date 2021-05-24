@@ -7,36 +7,10 @@ import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
+import {useSelector} from 'react-redux';
 
-const initialEntries = [
-	{
-		id: 1,
-		description: 'Work Income',
-		value: 1000.00,
-		isExpense: false
-	},
-	{
-		id: 2,
-		description: 'Water Bill',
-		value: 20.00,
-		isExpense: true
-	},
-	{
-		id: 3,
-		description: 'Rent',
-		value: 300.00,
-		isExpense: true
-	},
-	{
-		id: 4,
-		description: 'Power Bill',
-		value: 30.00,
-		isExpense: true
-	}
-];
 
 function App() {
-	const [ entries, setEntries ] = useState(initialEntries);
 	const [ description, setDescription ] = useState('');
 	const [ value, setValue ] = useState('');
 	const [ isExpense, setIsExpense ] = useState(true);
@@ -45,6 +19,9 @@ function App() {
 	const [ totalIncomes, setTotalIncomes ] = useState(0);
 	const [ totalExpenses, setTotalExpenses ] = useState(0);
 	const [ total, setTotal ] = useState(0);
+	
+	const entries = useSelector(state => state.entries)
+
 
 
 	useEffect(
@@ -55,34 +32,32 @@ function App() {
 				newEntries[index].description = description;
 				newEntries[index].value = value;
 				newEntries[index].isExpense = isExpense;
-				setEntries(newEntries);
+				//setEntries(newEntries);
 				resetEntries();
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[ isOpen ]
 	);
 
-	useEffect(() => {
-		let totalIncomes = 0;
-		let totalExpenses = 0;
+	useEffect(
+		() => {
+			let totalIncomes = 0;
+			let totalExpenses = 0;
 
-		entries.map((entry) => {
-			if(entry.isExpense){
-				return totalExpenses += Number(entry.value);
-			} else {
-				return totalIncomes += Number(entry.value);
-			}
-		})
-		setTotal(totalIncomes - totalExpenses);
-		setTotalExpenses(totalExpenses);
-		setTotalIncomes(totalIncomes);
-
-	}, [entries]);
-
-	function deleteEntry(id) {
-		const result = entries.filter((entry) => entry.id !== id);
-		setEntries(result);
-	}
+			entries.map((entry) => {
+				if (entry.isExpense) {
+					return (totalExpenses += Number(entry.value));
+				} else {
+					return (totalIncomes += Number(entry.value));
+				}
+			});
+			setTotal(totalIncomes - totalExpenses);
+			setTotalExpenses(totalExpenses);
+			setTotalIncomes(totalIncomes);
+		},
+		[ entries ]
+	);
 
 	function editEntry(id) {
 		if (id) {
@@ -104,7 +79,7 @@ function App() {
 			value,
 			isExpense
 		});
-		setEntries(result);
+		//setEntries(result);
 		resetEntries();
 	}
 
@@ -126,7 +101,7 @@ function App() {
 			/>
 			<DisplayBalances totalExpenses={totalExpenses} totalIncomes={totalIncomes} />
 			<MainHeader title="History" type="h3" />
-			<EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry} />
+			<EntryLines entries={entries} editEntry={editEntry} />
 			<MainHeader title="Add new Transaction" type="h3" />
 			<NewEntryForm
 				addEntry={addEntry}
