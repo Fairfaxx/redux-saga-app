@@ -16,10 +16,7 @@ const EntryLine = ({ id, isExpense = false, description, value }) => {
 						</Grid.Column>
 						<Grid.Column width={3}>{value}</Grid.Column>
 						<Grid.Column width={3}>
-							<Icon 
-								name="edit" 
-								bordered 
-								onClick={() => dispatch(openEditModal(id))} />
+							<Icon name="edit" bordered onClick={() => dispatch(openEditModal(id))} />
 							<Icon name="trash" bordered onClick={() => dispatch(removeEntryRedux(id))} />
 						</Grid.Column>
 					</Grid.Row>
