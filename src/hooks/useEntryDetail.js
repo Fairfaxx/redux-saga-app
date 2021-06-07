@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addEntryRedux, updateEntryRedux } from '../actions/entries.actions';
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 } from 'uuid';
 import { closeEditModal } from '../actions/modals.actions';
 
 const useEntryDetail = (desc = '', val = '', isExp = true) => {
