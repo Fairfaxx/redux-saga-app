@@ -5,20 +5,20 @@
       "description": "Work Income"
     },
     {
-      "id": 2,
-      "description": "Water Bill"
+      "id": "c792fc93-b692-4ce1-b911-9801cc569663",
+      "description": "fefe"
     },
     {
-      "id": 3,
-      "description": "Rent"
+      "id": "0681145e-e98e-45f4-9d65-185af48ee482",
+      "description": "fe"
     },
     {
-      "id": 4,
-      "description": "Power Bill"
+      "id": "74601045-b970-406f-8f1a-d20cce747c74",
+      "description": "fred"
     },
     {
-      "id": 5,
-      "description": "Cars"
+      "id": "c548a7a6-0bd4-4a7d-8f41-613c46d6043b",
+      "description": "fefin"
     }
   ],
   "values": [
@@ -46,6 +46,56 @@
       "id": 5,
       "value": 100,
       "isExpense": true
+    },
+    {
+      "id": "075a0d6d-6ff2-44a5-b0cb-5d35d38946e6",
+      "isExpense": true,
+      "value": "221"
+    },
+    {
+      "id": "f7993e7c-e328-4e8b-9ce4-9901beca4687",
+      "isExpense": true,
+      "value": ""
+    },
+    {
+      "id": "50c207ae-7b67-4e9b-870d-203b644fe7b1",
+      "isExpense": true,
+      "value": ""
+    },
+    {
+      "id": "2856a665-5421-49dc-96cf-a4104f8959be",
+      "isExpense": true,
+      "value": ""
+    },
+    {
+      "id": "9ced8166-3454-4803-a8ee-1490f31071c9",
+      "isExpense": true,
+      "value": ""
+    },
+    {
+      "id": "402551d3-5ac4-4222-b514-7ee1873a44d8",
+      "isExpense": true,
+      "value": "11"
+    },
+    {
+      "id": "c792fc93-b692-4ce1-b911-9801cc569663",
+      "isExpense": false,
+      "value": "1100"
+    },
+    {
+      "id": "0681145e-e98e-45f4-9d65-185af48ee482",
+      "isExpense": true,
+      "value": "111"
+    },
+    {
+      "id": "74601045-b970-406f-8f1a-d20cce747c74",
+      "isExpense": true,
+      "value": "11"
+    },
+    {
+      "id": "c548a7a6-0bd4-4a7d-8f41-613c46d6043b",
+      "isExpense": false,
+      "value": "999"
     }
   ]
 }
